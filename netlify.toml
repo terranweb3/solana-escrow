@@ -1,0 +1,4 @@
+[build]
+base = "front-end"
+command = "pnpm build"
+publish = "dist"

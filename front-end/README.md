@@ -17,6 +17,12 @@ VITE_SOLANA_RPC_URL=https://your-browser-safe-devnet-rpc.example pnpm dev
 
 Vite publishes `VITE_` variables in the client bundle. Do not put private credentials in the RPC URL.
 
+## Deploy on Netlify
+
+Import this repository from GitHub into Netlify. The root `netlify.toml` sets the base directory to `front-end`, runs `pnpm build`, and publishes `front-end/dist`. Node 24 and pnpm 9.12.2 are pinned in the frontend. The generated IDL and types are checked in, so the Netlify build does not need the Anchor toolchain.
+
+The deployed app uses devnet by default. Leave `VITE_SOLANA_CLUSTER` unset, or set it to `devnet`. If the public devnet RPC is rate-limited, set `VITE_SOLANA_RPC_URL` in Netlify's build environment to a browser-accessible devnet HTTPS RPC URL, then redeploy. This URL is embedded in the public JavaScript bundle; do not use a private API key in it. Configure the browser wallet for devnet as well.
+
 ## Localnet development
 
 Start the local validator with the program as described in the root README, then run:
