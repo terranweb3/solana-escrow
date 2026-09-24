@@ -1,20 +1,17 @@
 # Solana escrow program
 
-Anchor workspace for the on-chain program. The generated `initialize` instruction is a starter example; escrow instructions have not been implemented yet.
+Anchor 0.31.1 program for full-order classic SPL Token swaps. Instructions:
 
-## Build
+- `make(id, amount_offered, amount_requested)`: maker creates an escrow PDA and deposits offered tokens into its vault.
+- `take()`: any taker pays the requested tokens to the maker and receives the offered tokens atomically.
+- `cancel()`: the maker refunds an open vault.
+
+The program validates PDA seeds, signer authority, mints, associated token accounts, and the classic Token Program. It returns any extra tokens sent to the vault to the maker, closes the vault and escrow state, and emits lifecycle events.
 
 ```sh
 pnpm install
 NO_DNA=1 anchor build
+NO_DNA=1 anchor test --provider.cluster localnet --provider.wallet /path/to/local-wallet.json
 ```
 
-The workspace targets `localnet` in `Anchor.toml`. The generated program keypair stays in the ignored `target/deploy/` directory. Keep it locally if you want to preserve the same program ID across builds.
-
-## Test locally
-
-```sh
-NO_DNA=1 anchor test
-```
-
-This starts a local test network and sends the example `initialize` transaction. Run it only when you intend to execute that local transaction.
+See the root README for initial program-key synchronization, localnet setup, test token creation, and frontend integration.
